@@ -21,38 +21,35 @@ def text_löscher(event):
     text_feld.config(borderwidth=2, relief="solid", highlightbackground="red")
 
 
+
 def letzten_zeichen_löschen():
-
-    """counter_var.set(counter_var.get() - 1)
-
-
-    label_timer.config(text=f"{counter_var.get()}")
-
-    if counter_var.get() > 0:
-        window.after(1000, )"""
 
 
     text = text_feld.get("1.0", "end-1c")
     if text:
-        text_feld.delete("end-3c", "end-1c")
-        window.after(200, letzten_zeichen_löschen)
+        #if text_feld.bind("Key", lambda event: {
+         #   return 0})
 
 
-def countdowner(counter_var):
-    counter_var.set(counter_var.get() - 1)
+        text_feld.delete("end-2c", "end-1c")
 
-    label_timer.config(text=f"{counter_var.get()}")
 
-    if counter_var.get() > 0:
-        window.after(1000, countdowner, counter_var)
+        #text_feld.after(1000, letzten_zeichen_löschen)
+
+
+
+
 
 
     #zeit_differenz = time.time() - erste_zeit
 
 
-"""def on_key_press(event):
-    key = event.keysym
-    label.config(text=f"Du hast die Taste '{key}' gedrückt.")"""
+def on_key_pressed(event):
+    text_feld.after_cancel(text_feld_verzögerung)
+    text_feld_verzögerung = text_feld.after(5000, letzten_zeichen_löschen)
+
+
+
 
 window = Tk()
 window.config()
@@ -75,9 +72,15 @@ text_feld.place(x = 500, y = 350, anchor = CENTER)
 label_timer = Label(window, font=("Helvetica"))
 label_timer.pack()
 
-window.after(5000, countdowner, counter )
 
-window.after(5000, letzten_zeichen_löschen)
+text_feld_verzögerung = None
+
+text_feld.bind("<Key>", on_key_pressed)
+
+
+#text_feld.bind("<Key>",lambda event: text_feld.after(1000, letzten_zeichen_löschen))
+
+
 
 
 #text_feld.bind("<KeyPress>", letzten_zeichen_löschen)
