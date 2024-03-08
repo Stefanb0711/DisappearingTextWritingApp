@@ -1,98 +1,66 @@
-import time
-from tkinter import *
-from time import sleep
+from tkinter import Tk, Text, Label, END
+from texteditor import TextEditor
+
+"""class TextEditor:
+    def __init__(self,):
+        self.timer = 6
+        self.has_written = False
+        self.benutzereingabe_checken()
+
+        #self.text_feld = text_feld
+        #self.timer_label = timer_label
+
+
+    def benutzereingabe_checken(self, event=None):
+
+        if self.has_written:
+            self.timer_zurücksetzen()
+
+        else:
+            self.has_written = True
+            self.countdown()
+
+    def countdown(self):
+
+        if self.has_written:
+
+            self.timer -= 1
+            timer_label.config(text=str(self.timer))
+
+            if self.timer <= 0:
+                text_feld.delete(1.0, END)
+                self.has_written = False
+                self.timer_zurücksetzen()
+
+            tk.after(1000, self.countdown)
+
+
+    def timer_zurücksetzen(self):
+        self.timer = 6
+"""
 
 
 
-def objekte_zentrieren():
-    x_center = window.winfo_width // 2
-    y_center = window.winfo_width // 2
+tk = Tk()
+
+tk.title("The Most Dangerous Writing Snake")
+tk.geometry("1000x400")
+
+#text_feld = Text(tk, height=8, width=100, highlightthickness=1)
+text_label = Label(tk, text="Wenn du aufhörst zu schreiben, verschwindet der Text", font=("Courier", 14), pady=20)
+text_label.pack()
 
 
+#timer_label = Label(tk)
 
+text_editor = TextEditor(window=tk)
 
-def text_löscher(event):
-    #erste_zeit = time.time()
-    #sleep(5)
+text_editor.text_feld.bind("<Key>", text_editor.benutzereingabe_checken)
+text_editor.timer_label.config(font=("Courier", 14))
 
+#text_feld.pack()
+#timer_label.pack()
 
-    #window.after(3000, lambda: text_feld.delete("end-2c", "end-1c"))
+# Main Loop
 
-    text_feld.config(borderwidth=2, relief="solid", highlightbackground="red")
-
-
-
-def letzten_zeichen_löschen():
-
-
-    text = text_feld.get("1.0", "end-1c")
-    if text:
-        #if text_feld.bind("Key", lambda event: {
-         #   return 0})
-
-
-        text_feld.delete("end-2c", "end-1c")
-
-
-        #text_feld.after(1000, letzten_zeichen_löschen)
-
-
-
-
-
-
-    #zeit_differenz = time.time() - erste_zeit
-
-
-def on_key_pressed(event):
-    text_feld.after_cancel(text_feld_verzögerung)
-    text_feld_verzögerung = text_feld.after(5000, letzten_zeichen_löschen)
-
-
-
-
-window = Tk()
-window.config()
-window.title("Secret Writer")
-
-window.geometry("1000x600")
-
-window.resizable(False,False)
-
-counter = IntVar(value=6)
-
-erklärung_label = Label(window, text="Wenn du aufhörst zu schreiben, verschwindet der Text", font=("Helvetica", 15))
-erklärung_label.place(x = 500, y = 100, anchor = CENTER)
-#erklärung_label.grid(row=1, column=1)
-
-
-text_feld = Text(window)
-text_feld.place(x = 500, y = 350, anchor = CENTER)
-
-label_timer = Label(window, font=("Helvetica"))
-label_timer.pack()
-
-
-text_feld_verzögerung = None
-
-text_feld.bind("<Key>", on_key_pressed)
-
-
-#text_feld.bind("<Key>",lambda event: text_feld.after(1000, letzten_zeichen_löschen))
-
-
-
-
-#text_feld.bind("<KeyPress>", letzten_zeichen_löschen)
-
-
-
-
-window.mainloop()
-
-
-#Wenn 3 sekunden nicht geschrieben wird, verschindet 1 buchstabe pro sekunde
-
-#Wenn 7 sekunden nicht geschrieben wird 2 pro sec
-
-#Wenn 12 sec dann 3
+tk.mainloop()
